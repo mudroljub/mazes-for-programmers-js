@@ -147,7 +147,7 @@ export default class Grid3D extends Grid {
 
   draw_with_inset(ctx, cell, cellSize, x, y, inset) {
     let x1, x2, x3, x4, y1, y2, y3, y4;
-    [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
+    [x1, x2, x3, x4, y1, y2, y3, y4] = this.coordinates_with_inset(x, y, cellSize, inset)
 
     ctx.strokeStyle = 'black'
 

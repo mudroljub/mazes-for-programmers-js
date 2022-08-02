@@ -31,10 +31,16 @@ export default class WeaveGrid extends Grid {
   }
 
   draw_with_inset(ctx, cell, cellSize, x, y, inset) {
-    if (cell.constructor.name == 'OverCell' || cell.constructor.name == 'SimpleOverCell')
-      super.draw_with_inset(ctx, cell, cellSize, x, y, inset)
-    else {
-      const [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
+    if (cell.constructor.name == 'UnderCell') {
+      const x1 = x
+      const x4 = x + cellSize
+      const x2 = x1 + inset
+      const x3 = x4 - inset
+
+      const y1 = y
+      const y4 = y + cellSize
+      const y2 = y1 + inset
+      const y3 = y4 - inset
 
       if (cell.vertical_passage) {
         ctx.moveTo(x2, y1)
@@ -57,7 +63,8 @@ export default class WeaveGrid extends Grid {
         ctx.lineTo(x4, y3)
         ctx.stroke()
       }
-    }
+    } else
+      super.draw_with_inset(ctx, cell, cellSize, x, y, inset)
   }
 }
 

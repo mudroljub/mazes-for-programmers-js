@@ -164,10 +164,7 @@ export default class Grid {
     for (const cell of this.each_cell()) {
       const x = cell.column * cellSize
       const y = cell.row * cellSize
-      if (inset > 0)
-        this.draw_with_inset(ctx, cell, cellSize, x, y, inset)
-      else
-        this.draw_regular(ctx, cell, cellSize, x, y)
+      this.draw_with_inset(ctx, cell, cellSize, x, y, inset)
     }
   }
 
@@ -199,7 +196,7 @@ export default class Grid {
     }
   }
 
-  cell_coordinates_with_inset(x, y, cellSize, inset) {
+  draw_with_inset(ctx, cell, cellSize, x, y, inset) {
     const x1 = x
     const x4 = x + cellSize
     const x2 = x1 + inset
@@ -209,12 +206,6 @@ export default class Grid {
     const y4 = y + cellSize
     const y2 = y1 + inset
     const y3 = y4 - inset
-
-    return [x1, x2, x3, x4, y1, y2, y3, y4]
-  }
-
-  draw_with_inset(ctx, cell, cellSize, x, y, inset) {
-    const [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
 
     if (cell.linked(cell.north)) {
       ctx.moveTo(x2, y1)
