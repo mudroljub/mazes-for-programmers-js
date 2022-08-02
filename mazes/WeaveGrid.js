@@ -34,9 +34,9 @@ export default class WeaveGrid extends Grid {
     super.draw(cellSize, inset, ctx)
   }
 
-  to_img_with_inset(ctx, cell, cellSize, x, y, inset) {
+  draw_with_inset(ctx, cell, cellSize, x, y, inset) {
     if (cell.constructor.name == 'OverCell' || cell.constructor.name == 'SimpleOverCell')
-      super.to_img_with_inset(ctx, cell, cellSize, x, y, inset)
+      super.draw_with_inset(ctx, cell, cellSize, x, y, inset)
     else {
       const [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
 

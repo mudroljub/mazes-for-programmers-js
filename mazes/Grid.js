@@ -165,13 +165,13 @@ export default class Grid {
       const x = cell.column * cellSize
       const y = cell.row * cellSize
       if (inset > 0)
-        this.to_img_with_inset(ctx, cell, cellSize, x, y, inset)
+        this.draw_with_inset(ctx, cell, cellSize, x, y, inset)
       else
-        this.to_img_without_inset(ctx, cell, cellSize, x, y)
+        this.draw_regular(ctx, cell, cellSize, x, y)
     }
   }
 
-  to_img_without_inset(ctx, cell, cellSize, x, y) {
+  draw_regular(ctx, cell, cellSize, x, y) {
     const x1 = x
     const y1 = y
     const x2 = x1 + cellSize
@@ -213,7 +213,7 @@ export default class Grid {
     return [x1, x2, x3, x4, y1, y2, y3, y4]
   }
 
-  to_img_with_inset(ctx, cell, cellSize, x, y, inset) {
+  draw_with_inset(ctx, cell, cellSize, x, y, inset) {
     let x1, x2, x3, x4, y1, y2, y3, y4;
     [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
 
