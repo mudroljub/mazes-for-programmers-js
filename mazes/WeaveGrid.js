@@ -30,7 +30,7 @@ export default class WeaveGrid extends Grid {
       if (this.under_cells[i]) yield this.under_cells[i]
   }
 
-  draw_with_inset(ctx, cell, cellSize, x, y, inset) {
+  draw_cell(ctx, cell, cellSize, x, y, inset) {
     if (cell.constructor.name == 'UnderCell') {
       const x1 = x
       const x4 = x + cellSize
@@ -64,7 +64,7 @@ export default class WeaveGrid extends Grid {
         ctx.stroke()
       }
     } else
-      super.draw_with_inset(ctx, cell, cellSize, x, y, inset)
+      super.draw_cell(ctx, cell, cellSize, x, y, inset)
   }
 }
 

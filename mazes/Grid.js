@@ -164,39 +164,11 @@ export default class Grid {
     for (const cell of this.each_cell()) {
       const x = cell.column * cellSize
       const y = cell.row * cellSize
-      this.draw_with_inset(ctx, cell, cellSize, x, y, inset)
+      this.draw_cell(ctx, cell, cellSize, x, y, inset)
     }
   }
 
-  draw_regular(ctx, cell, cellSize, x, y) {
-    const x1 = x
-    const y1 = y
-    const x2 = x1 + cellSize
-    const y2 = y1 + cellSize
-
-    if (!cell.north) {
-      ctx.moveTo(x1, y1)
-      ctx.lineTo(x2, y1)
-      ctx.stroke()
-    }
-    if (!cell.west) {
-      ctx.moveTo(x1, y1)
-      ctx.lineTo(x1, y2)
-      ctx.stroke()
-    }
-    if (!cell.linked(cell.east)) {
-      ctx.moveTo(x2, y1)
-      ctx.lineTo(x2, y2)
-      ctx.stroke()
-    }
-    if (!cell.linked(cell.south)) {
-      ctx.moveTo(x1, y2)
-      ctx.lineTo(x2, y2)
-      ctx.stroke()
-    }
-  }
-
-  draw_with_inset(ctx, cell, cellSize, x, y, inset) {
+  draw_cell(ctx, cell, cellSize, x, y, inset) {
     const x1 = x
     const x4 = x + cellSize
     const x2 = x1 + inset
