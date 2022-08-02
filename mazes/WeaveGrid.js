@@ -30,10 +30,6 @@ export default class WeaveGrid extends Grid {
       if (this.under_cells[i]) yield this.under_cells[i]
   }
 
-  draw(cellSize = 10, inset = 0.1, ctx) {
-    super.draw(cellSize, inset, ctx)
-  }
-
   draw_with_inset(ctx, cell, cellSize, x, y, inset) {
     if (cell.constructor.name == 'OverCell' || cell.constructor.name == 'SimpleOverCell')
       super.draw_with_inset(ctx, cell, cellSize, x, y, inset)

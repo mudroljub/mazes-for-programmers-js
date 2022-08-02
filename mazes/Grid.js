@@ -214,8 +214,7 @@ export default class Grid {
   }
 
   draw_with_inset(ctx, cell, cellSize, x, y, inset) {
-    let x1, x2, x3, x4, y1, y2, y3, y4;
-    [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
+    const [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
 
     if (cell.linked(cell.north)) {
       ctx.moveTo(x2, y1)
