@@ -94,17 +94,10 @@ export default class Grid {
     this.distances = cell.distances
   }
 
-  // background_color_for(cell) {
-  //   if (!this.distances) return 'white'
-  //   const distance = this.distances.get(cell)
-  //   return shadeOfGreen(this.maximum, distance)
-  // }
-
   background_color_for(cell) {
     if (cell.weight > 1) return 'red'
-    if (!this.distances) return 'white'
-    const distance = this.distances.get(cell)
-    if (!distance) return 'white'
+    const distance = this.distances?.get(cell)
+    if (distance === undefined) return 'white'
     return shadeOfGreen (this.maximum, distance)
   }
 

@@ -5,4 +5,5 @@ const grid = new Grid(25)
 BinaryTree.on(grid)
 
 grid.init_distances()
+console.log(grid.toString())
 grid.draw(20)
