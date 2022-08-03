@@ -108,7 +108,7 @@ export default class PolarGrid extends Grid {
       const dy = center + Math.floor(outer_radius * Math.sin(theta_cw))
 
       ctx.strokeStyle = 'black'
-      ctx.lineWidth = 3
+      ctx.lineWidth = 2
       ctx.beginPath()
       if (!cell.linked(cell.inward)) {
         ctx.moveTo(ax, ay)

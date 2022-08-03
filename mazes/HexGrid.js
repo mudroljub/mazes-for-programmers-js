@@ -43,8 +43,9 @@ export default class HexGrid extends Grid {
     return this.grid[row][column]
   }
 
-  draw(cellSize) {
+  draw(cellSize = 20) {
     ctx.strokeStyle = 'black'
+    ctx.lineWidth = 2
 
     const a_size = cellSize / 2.0
     const b_size = cellSize * Math.sqrt(3) / 2.0
