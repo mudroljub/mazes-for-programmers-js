@@ -63,7 +63,7 @@ export default class Grid {
 
   * each_row() {
     for (const row of this.grid)
-      yield row
+      if (row) yield row
   }
 
   * each_cell() {

@@ -16,7 +16,7 @@ export default class PolarGrid extends Grid {
     const row_height = 1 / this.rows
     rows[0] = [new PolarCell(0, 0)]
 
-    for (let i = 1; i <= this.rows; i += 1) {
+    for (let i = 1; i < this.rows; i += 1) {
       const radius = i * 1 / this.rows
       const circumference = 2 * Math.PI * radius
 
