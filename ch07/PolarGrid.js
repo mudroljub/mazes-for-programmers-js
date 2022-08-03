@@ -1,5 +1,5 @@
 import Grid from './Grid.js'
-import PolarCell from './PolarCell.js'
+import PolarCell from '../mazes/PolarCell.js'
 
 export default class PolarGrid extends Grid {
   constructor(rows, columns) {
@@ -24,7 +24,6 @@ export default class PolarGrid extends Grid {
       rows[i] = new Array(cells)
       for (let j = 0; j < cells; j += 1)
         rows[i][j] = new PolarCell(i, j)
-
     }
 
     this.grid = rows
