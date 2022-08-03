@@ -1,6 +1,11 @@
 import Grid from './Grid.js'
 import PolarCell from '../mazes/PolarCell.js'
 
+const canvas = document.getElementById('output')
+const ctx = canvas.getContext('2d')
+canvas.width = 800
+canvas.height = 600
+
 export default class PolarGrid extends Grid {
   constructor(rows, columns) {
     super(rows, 1)
@@ -64,7 +69,7 @@ export default class PolarGrid extends Grid {
     return this.cell(row, col)
   }
 
-  draw(ctx, cellSize = 10) {
+  draw(cellSize = 10) {
     ctx.strokeStyle = 'black'
 
     const img_size = 2 * this.rows * cellSize
