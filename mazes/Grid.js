@@ -72,12 +72,6 @@ export default class Grid {
         if (cell) yield cell
   }
 
-  get random_cell() {
-    const row = Math.floor(Math.random() * this.rows)
-    const column = Math.floor(Math.random() * this.grid[row].length)
-    return this.cell(row, column)
-  }
-
   get size() {
     return this.rows * this.columns
   }
@@ -104,8 +98,18 @@ export default class Grid {
     return this.cell(this.rows - 1, this.columns - 1)
   }
 
+  get random_cell() {
+    const row = Math.floor(Math.random() * this.rows)
+    const column = Math.floor(Math.random() * this.grid[row].length)
+    return this.cell(row, column)
+  }
+
   init_distances(cell = this.middle_cell) {
     this.distances = cell.distances
+  }
+
+  init_path(start = this.random_cell, end = this.random_cell) {
+    this.distances = start.distances.path_to(end)
   }
 
   contents_of(cell) {

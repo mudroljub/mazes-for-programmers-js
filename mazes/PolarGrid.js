@@ -51,6 +51,16 @@ export default class PolarGrid extends Grid {
     return this.grid[row][column % this.grid[row].length]
   }
 
+  get first_cell() {
+    const rows = this.grid.length
+    const columns = this.grid[rows - 1].length
+    return this.grid[rows - 1][Math.floor(columns / 2)]
+  }
+
+  get middle_cell() {
+    return this.cell(0, 0)
+  }
+
   get random_cell() {
     const row = Math.floor(Math.random() * this.rows)
     const col = Math.floor(Math.random() * this.grid[row].length)
@@ -61,24 +71,22 @@ export default class PolarGrid extends Grid {
     return this.grid[row].length
   }
 
-  draw_circle(theta_ccw, theta_cw, inner_radius, outer_radius, center, cell, ring_height) {
-    const thetaMid = (theta_ccw + theta_cw) / 2
-    const radiusMid = (inner_radius + outer_radius) / 2
-    const centerX = center + Math.floor(radiusMid * Math.cos(thetaMid))
-    const centerY = center + Math.floor(radiusMid * Math.sin(thetaMid))
-
+  draw_indicator(centerX, centerY, ring_height, cell) {
     ctx.strokeStyle = ctx.fillStyle = this.background_color_for(cell)
     ctx.beginPath()
-    ctx.arc(centerX, centerY, ring_height * .25, 0, 2 * Math.PI)
+    ctx.arc(centerX, centerY, ring_height * .2, 0, 2 * Math.PI)
     ctx.fill()
     ctx.stroke()
   }
 
-  draw(ring_height = 20) { // ring_height = cellSize
+  draw(ring_height = 20) {
     const center = this.rows * ring_height
 
     for (const cell of this.each_cell()) {
-      if (cell.row == 0) continue // center is empty
+      if (cell.row == 0) {
+        this.draw_indicator(center, center, ring_height, cell)
+        continue // no walls in center
+      }
 
       const theta = 2 * Math.PI / this.cell_count(cell.row)
       const inner_radius = cell.row * ring_height
@@ -86,14 +94,18 @@ export default class PolarGrid extends Grid {
       const theta_ccw = cell.column * theta // counter-clockwise (left) wall
       const theta_cw = (cell.column + 1) * theta // clockwise (right) wall
 
+      const thetaMid = (theta_ccw + theta_cw) / 2
+      const radiusMid = (inner_radius + outer_radius) / 2
+      const centerX = center + Math.floor(radiusMid * Math.cos(thetaMid))
+      const centerY = center + Math.floor(radiusMid * Math.sin(thetaMid))
+      this.draw_indicator(centerX, centerY, ring_height, cell)
+
       const ax = center + Math.floor(inner_radius * Math.cos(theta_ccw))
       const ay = center + Math.floor(inner_radius * Math.sin(theta_ccw))
       const cx = center + Math.floor(inner_radius * Math.cos(theta_cw))
       const cy = center + Math.floor(inner_radius * Math.sin(theta_cw))
       const dx = center + Math.floor(outer_radius * Math.cos(theta_cw))
       const dy = center + Math.floor(outer_radius * Math.sin(theta_cw))
-
-      this.draw_circle(theta_ccw, theta_cw, inner_radius, outer_radius, center, cell, ring_height)
 
       ctx.strokeStyle = 'black'
       ctx.lineWidth = 3

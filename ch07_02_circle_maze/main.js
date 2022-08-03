@@ -4,6 +4,5 @@ import RecursiveBacktracker from '../mazes/algorithms/RecursiveBacktracker.js'
 const grid = new PolarGrid(10)
 RecursiveBacktracker.on(grid)
 
-grid.distances = grid.first_cell.distances
-
+grid.init_path(grid.first_cell, grid.last_cell)
 grid.draw(20)
