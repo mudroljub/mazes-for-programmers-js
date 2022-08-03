@@ -9,7 +9,5 @@ const mask = Mask.from_txt(s)
 const grid = new MaskedGrid(mask)
 RecursiveBacktracker.on(grid)
 
-// let start = grid.middle_cell;
-// grid.distances = start.distances;
-
+grid.distances = grid.random_cell.distances
 grid.draw()

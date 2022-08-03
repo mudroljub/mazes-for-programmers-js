@@ -57,7 +57,7 @@ export default class PolarGrid extends Grid {
     return this.cell(row, col)
   }
 
-  draw(cellSize = 10) {
+  draw(cellSize = 20) {
     const img_size = 2 * this.rows * cellSize
     const center = img_size / 2
 

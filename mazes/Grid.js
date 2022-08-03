@@ -122,6 +122,7 @@ export default class Grid {
       let top = '|'
       let bottom = '+'
       for (const cell of row) {
+        if (!cell) continue
         const body = ` ${this.contents_of(cell)} `
         const east_boundary = cell.linked(cell.east) ? ' ' : '|'
         top += body + east_boundary
@@ -210,8 +211,8 @@ export default class Grid {
   }
 
   resize_canvas(canvas, cellSize) {
-    canvas.width = cellSize * this.rows + 1
-    canvas.height = cellSize * this.columns + 1
+    canvas.width = cellSize * this.columns + 1
+    canvas.height = cellSize * this.rows + 1
   }
 
   get deadends() {
