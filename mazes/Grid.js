@@ -77,16 +77,16 @@ export default class Grid {
     return this._distances
   }
 
+  get first_cell() {
+    return this.cell(0, 0)
+  }
+
   get middle_cell() {
     return this.cell(Math.floor(this.rows / 2), Math.floor(this.columns / 2))
   }
 
   get last_cell() {
     return this.cell(this.rows - 1, this.columns - 1)
-  }
-
-  get first_cell() {
-    return this.cell(0, 0)
   }
 
   init_distances(cell = this.middle_cell) {

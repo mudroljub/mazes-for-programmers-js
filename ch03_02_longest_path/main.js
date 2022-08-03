@@ -4,16 +4,12 @@ import Grid from '../mazes/Grid.js'
 const grid = new Grid(8, 8)
 SideWinder.on(grid)
 
-grid.draw(30)
+const [farthest_id] = grid.first_cell.distances.max()
+const farthest_cell = grid.cell_by_id(farthest_id)
 
-const start = grid.cell(0, 0)
-const [new_start_id] = start.distances.max()
+const [goal_id] = farthest_cell.distances.max()
+const goal_cell = grid.cell_by_id(goal_id)
 
-const new_start = grid.cell_by_id(new_start_id)
-const new_distances = new_start.distances
-const [goal_id] = new_distances.max()
-
-const goal = grid.cell_by_id(goal_id)
-grid.distances = new_distances.path_to(goal)
-
+grid.distances = farthest_cell.distances.path_to(goal_cell)
 console.log(grid.toString())
+grid.draw(30)
