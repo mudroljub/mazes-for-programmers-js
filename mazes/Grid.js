@@ -98,7 +98,7 @@ export default class Grid {
     if (cell.weight > 1) return 'red'
     const distance = this.distances?.get(cell)
     if (distance === undefined) return 'white'
-    return shadeOfGreen (this.maximum, distance)
+    return shadeOfGreen(this.maximum, distance)
   }
 
   contents_of(cell) {
@@ -115,7 +115,6 @@ export default class Grid {
       let top = '|'
       let bottom = '+'
       for (const cell of row) {
-        // if (!cell) continue
         const body = ` ${this.contents_of(cell)} `
         const east_boundary = cell.linked(cell.east) ? ' ' : '|'
         top += body + east_boundary

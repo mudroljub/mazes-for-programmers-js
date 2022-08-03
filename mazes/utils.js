@@ -1,13 +1,14 @@
 export const shadeOfGreen = (maximum, distance) => {
   const intensity = (maximum - distance) / maximum
-  const dark = Math.floor(255 * intensity)
-  const bright = Math.floor(128 + 127 * intensity)
-  return `rgb(${dark},${bright},${dark})`
+  const shade = Math.floor(230 * intensity)
+  const green = Math.floor(128 + 127 * intensity)
+  return `rgb(${shade}, ${green}, ${shade})`
 }
 
 export const shadeOfYellow = (maximum, distance) => {
-  const intensity = 64 + 191 * (maximum - distance) / maximum
-  return `rgb(${intensity},${intensity},0)`
+  const intensity = (maximum - distance) / maximum
+  const col = 64 + 191 * intensity
+  return `rgb(${col}, ${col}, 0)`
 }
 
 export const shuffle = array => {
