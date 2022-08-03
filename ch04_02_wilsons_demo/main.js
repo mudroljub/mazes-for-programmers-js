@@ -4,5 +4,5 @@ import Wilsons from '../mazes/algorithms/Wilsons.js'
 const grid = new Grid(20)
 Wilsons.on(grid)
 
-grid.distances = grid.middle_cell.distances
+grid.init_distances()
 grid.draw()

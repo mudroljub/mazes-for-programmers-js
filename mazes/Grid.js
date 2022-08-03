@@ -2,7 +2,11 @@ import Cell from './Cell.js'
 import { shadeOfGreen, shuffle } from './utils.js'
 
 const defaultCanvas = document.getElementById('output')
-const defaultContext = defaultCanvas.getContext('2d')
+const defaultContext = defaultCanvas?.getContext('2d')
+if (defaultCanvas) {
+  defaultCanvas.width = 800
+  defaultCanvas.height = 600
+}
 
 export default class Grid {
   constructor(rows = 20, columns = rows) {
@@ -63,7 +67,7 @@ export default class Grid {
     return this.rows * this.columns
   }
 
-  set distances(distances) {
+  set distances(distances = this.middle_cell.distances) {
     this._distances = distances
     const [_, maximum] = distances.max()
     this.maximum = maximum
@@ -83,6 +87,10 @@ export default class Grid {
 
   get first_cell() {
     return this.cell(0, 0)
+  }
+
+  init_distances(cell = this.middle_cell) {
+    this.distances = cell.distances
   }
 
   background_color_for(cell) {
@@ -118,8 +126,6 @@ export default class Grid {
   }
 
   draw(cellSize = 20, inset = 0, ctx = defaultContext) {
-    ctx.canvas.width = cellSize * this.rows + 1
-    ctx.canvas.height = cellSize * this.columns + 1
     inset = Math.floor(cellSize * inset)
 
     for (const cell of this.each_cell()) {

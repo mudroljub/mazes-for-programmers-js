@@ -5,5 +5,5 @@ const grid = new Grid(20)
 RecursiveBacktracker.on(grid)
 grid.braid(0.5) // remove deadends
 
-grid.distances = grid.middle_cell.distances
+grid.init_distances()
 grid.draw()

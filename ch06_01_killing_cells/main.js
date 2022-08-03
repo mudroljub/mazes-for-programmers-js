@@ -18,5 +18,5 @@ cell.north = null
 
 RecursiveBacktracker.on(grid, grid.cell(1, 1))
 
-grid.distances = grid.middle_cell.distances
+grid.init_distances()
 grid.draw()
