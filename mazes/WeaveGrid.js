@@ -30,15 +30,13 @@ export default class WeaveGrid extends Grid {
       if (this.under_cells[i]) yield this.under_cells[i]
   }
 
-  draw_under_cell(ctx, cell, cellSize, x, y, inset) {
-    const x1 = x
-    const x4 = x + cellSize
+  draw_under_cell(ctx, cell, cellSize, x1, y1, inset) {
     const x2 = x1 + inset
+    const x4 = x1 + cellSize
     const x3 = x4 - inset
 
-    const y1 = y
-    const y4 = y + cellSize
     const y2 = y1 + inset
+    const y4 = y1 + cellSize
     const y3 = y4 - inset
 
     if (cell.vertical_passage) {
