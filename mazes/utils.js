@@ -1,14 +1,17 @@
-export const shadeOfGreen = (maximum, distance) => {
+const getShade = (maximum, distance) => {
   const intensity = (maximum - distance) / maximum
   const shade = Math.floor(230 * intensity)
   const color = Math.floor(128 + 127 * intensity)
+  return [shade, color]
+}
+
+export const shadeOfGreen = (maximum, distance) => {
+  const [shade, color] = getShade(maximum, distance)
   return `rgb(${shade}, ${color}, ${shade})`
 }
 
 export const shadeOfPurple = (maximum, distance) => {
-  const intensity = (maximum - distance) / maximum
-  const shade = Math.floor(230 * intensity)
-  const color = Math.floor(128 + 127 * intensity)
+  const [shade, color] = getShade(maximum, distance)
   return `rgb(${color}, ${shade}, ${color})`
 }
 
