@@ -1,6 +1,6 @@
 import Cell from './Cell.js'
 import WeightedCell from './WeightedCell.js'
-import { shadeOfGreen, shadeOfYellow, shuffle } from './utils.js'
+import { shadeOfGreen, shadeOfPurple, shuffle } from './utils.js'
 
 const defaultCanvas = document.getElementById('output')
 const defaultContext = defaultCanvas?.getContext('2d')
@@ -8,6 +8,8 @@ if (defaultCanvas) {
   defaultCanvas.width = 800
   defaultCanvas.height = 600
 }
+
+const shadeOff = Math.random() > 0.5 ? shadeOfGreen : shadeOfPurple
 
 export default class Grid {
   constructor(rows = 20, columns = rows, type = 'weighted') {
@@ -98,7 +100,7 @@ export default class Grid {
     if (cell.weight > 1) return 'red'
     const distance = this.distances?.get(cell)
     if (distance === undefined) return 'white'
-    return shadeOfGreen(this.maximum, distance)
+    return shadeOff(this.maximum, distance)
   }
 
   contents_of(cell) {

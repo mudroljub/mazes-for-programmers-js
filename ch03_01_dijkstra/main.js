@@ -7,7 +7,6 @@ BinaryTree.on(grid)
 const { first_cell } = grid
 
 grid.distances = first_cell.distances.path_to(grid.cell(grid.rows - 1, 0))
-console.log(grid.distances)
 console.log(grid.toString())
 
 grid.draw()
