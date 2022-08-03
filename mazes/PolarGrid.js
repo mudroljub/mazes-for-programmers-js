@@ -61,9 +61,21 @@ export default class PolarGrid extends Grid {
     return this.grid[row].length
   }
 
+  draw_circle(theta_ccw, theta_cw, inner_radius, outer_radius, center, cell, ring_height) {
+    const thetaMid = (theta_ccw + theta_cw) / 2
+    const radiusMid = (inner_radius + outer_radius) / 2
+    const centerX = center + Math.floor(radiusMid * Math.cos(thetaMid))
+    const centerY = center + Math.floor(radiusMid * Math.sin(thetaMid))
+
+    ctx.strokeStyle = ctx.fillStyle = this.background_color_for(cell)
+    ctx.beginPath()
+    ctx.arc(centerX, centerY, ring_height * .25, 0, 2 * Math.PI)
+    ctx.fill()
+    ctx.stroke()
+  }
+
   draw(ring_height = 20) { // ring_height = cellSize
-    const img_size = 2 * this.rows * ring_height
-    const center = img_size / 2
+    const center = this.rows * ring_height
 
     for (const cell of this.each_cell()) {
       if (cell.row == 0) continue // center is empty
@@ -81,21 +93,11 @@ export default class PolarGrid extends Grid {
       const dx = center + Math.floor(outer_radius * Math.cos(theta_cw))
       const dy = center + Math.floor(outer_radius * Math.sin(theta_cw))
 
-      const thetaMid = (theta_ccw + theta_cw) / 2
-      const radiusMid = (inner_radius + outer_radius) / 2
-      const centerX = center + Math.floor(radiusMid * Math.cos(thetaMid))
-      const centerY = center + Math.floor(radiusMid * Math.sin(thetaMid))
-
-      ctx.strokeStyle = ctx.fillStyle = this.background_color_for(cell)
-      ctx.beginPath()
-      ctx.arc(centerX, centerY, ring_height * .25, 0, 2 * Math.PI)
-      ctx.fill()
-      ctx.stroke()
+      this.draw_circle(theta_ccw, theta_cw, inner_radius, outer_radius, center, cell, ring_height)
 
       ctx.strokeStyle = 'black'
       ctx.lineWidth = 3
       ctx.beginPath()
-
       if (!cell.linked(cell.inward)) {
         ctx.moveTo(ax, ay)
         ctx.lineTo(cx, cy)
