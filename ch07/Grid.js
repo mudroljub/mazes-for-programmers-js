@@ -102,7 +102,7 @@ export default class Grid {
     return output
   }
 
-  to_img(ctx, cellSize) {
+  draw(ctx, cellSize) {
     ctx.strokeStyle = 'black'
 
     const cell_gen = this.each_cell()

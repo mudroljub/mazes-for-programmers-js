@@ -64,7 +64,7 @@ export default class PolarGrid extends Grid {
     return this.cell(row, col)
   }
 
-  to_img(ctx, cellSize = 10) {
+  draw(ctx, cellSize = 10) {
     ctx.strokeStyle = 'black'
 
     const img_size = 2 * this.rows * cellSize
