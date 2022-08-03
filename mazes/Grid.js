@@ -108,13 +108,6 @@ export default class Grid {
     this.distances = cell.distances
   }
 
-  background_color_for(cell) {
-    if (cell.weight > 1) return 'red'
-    const distance = this.distances?.get(cell)
-    if (distance === undefined) return 'white'
-    return shade(this.maximum, distance)
-  }
-
   contents_of(cell) {
     const distance = this.distances?.get(cell)
     if (distance >= 0)
@@ -139,6 +132,13 @@ export default class Grid {
       output += top + '\n' + bottom + '\n'
     }
     return output
+  }
+
+  background_color_for(cell) {
+    if (cell.weight > 1) return 'red'
+    const distance = this.distances?.get(cell)
+    if (distance === undefined) return 'white'
+    return shade(this.maximum, distance)
   }
 
   draw(cellSize = 20, inset = 0, ctx = defaultContext) {

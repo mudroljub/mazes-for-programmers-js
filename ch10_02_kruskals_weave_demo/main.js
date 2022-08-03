@@ -13,7 +13,7 @@ for (let i = 0; i < grid.size; i += 1) {
 }
 
 Kruskals.on(grid, state)
-grid.braid(0.5)
+grid.braid(0.3)
 const cellSize = 30
 
 grid.init_distances()
