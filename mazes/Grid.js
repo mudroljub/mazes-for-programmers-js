@@ -114,7 +114,7 @@ export default class Grid {
     this.distances = cell.distances
   }
 
-  init_path(start = this.random_cell, end = this.random_cell) {
+  init_path(start = this.first_cell, end = this.last_cell) {
     this.distances = start.distances.path_to(end)
   }
 
