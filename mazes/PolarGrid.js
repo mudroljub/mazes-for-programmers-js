@@ -57,19 +57,22 @@ export default class PolarGrid extends Grid {
     return this.cell(row, col)
   }
 
-  draw(cellSize = 20) {
-    const img_size = 2 * this.rows * cellSize
+  cell_count(row) {
+    return this.grid[row].length
+  }
+
+  draw(ring_height = 20) { // ring_height = cellSize
+    const img_size = 2 * this.rows * ring_height
     const center = img_size / 2
 
     for (const cell of this.each_cell()) {
-      if (cell.row == 0) continue // center cell is empty
+      if (cell.row == 0) continue // center is empty
 
-      const cell_count = this.grid[cell.row].length
-      const theta = 2 * Math.PI / cell_count
-      const inner_radius = cell.row * cellSize
-      const outer_radius = (cell.row + 1) * cellSize
-      const theta_ccw = cell.column * theta // counter-clockwise wall
-      const theta_cw = (cell.column + 1) * theta // clockwise wall
+      const theta = 2 * Math.PI / this.cell_count(cell.row)
+      const inner_radius = cell.row * ring_height
+      const outer_radius = (cell.row + 1) * ring_height
+      const theta_ccw = cell.column * theta // counter-clockwise (left) wall
+      const theta_cw = (cell.column + 1) * theta // clockwise (right) wall
 
       const ax = center + Math.floor(inner_radius * Math.cos(theta_ccw))
       const ay = center + Math.floor(inner_radius * Math.sin(theta_ccw))
@@ -78,19 +81,33 @@ export default class PolarGrid extends Grid {
       const dx = center + Math.floor(outer_radius * Math.cos(theta_cw))
       const dy = center + Math.floor(outer_radius * Math.sin(theta_cw))
 
+      const thetaMid = (theta_ccw + theta_cw) / 2
+      const radiusMid = (inner_radius + outer_radius) / 2
+      const centerX = center + Math.floor(radiusMid * Math.cos(thetaMid))
+      const centerY = center + Math.floor(radiusMid * Math.sin(thetaMid))
+
+      ctx.strokeStyle = ctx.fillStyle = this.background_color_for(cell)
+      ctx.beginPath()
+      ctx.arc(centerX, centerY, ring_height * .25, 0, 2 * Math.PI)
+      ctx.fill()
+      ctx.stroke()
+
+      ctx.strokeStyle = 'black'
+      ctx.lineWidth = 3
+      ctx.beginPath()
+
       if (!cell.linked(cell.inward)) {
         ctx.moveTo(ax, ay)
         ctx.lineTo(cx, cy)
-        ctx.stroke()
       }
       if (!cell.linked(cell.cw)) {
         ctx.moveTo(cx, cy)
         ctx.lineTo(dx, dy)
-        ctx.stroke()
       }
+      ctx.stroke()
     } // end for
 
-    ctx.arc(center, center, this.rows * cellSize, 0, 2 * Math.PI)
+    ctx.arc(center, center, this.rows * ring_height, 0, 2 * Math.PI)
     ctx.stroke()
   }
 }
