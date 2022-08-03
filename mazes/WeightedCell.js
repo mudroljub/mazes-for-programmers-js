@@ -15,8 +15,7 @@ export default class WeightedCell extends Cell {
       pending.sort((a, b) => weights.get(a) - weights.get(b))
       const cell = pending.shift()
 
-      for (const link in cell.links) {
-        const neighbor = cell.links[link]
+      for (const neighbor of Object.values(cell.links)) {
         const total_weight = weights.get(cell) + neighbor.weight
         if (!weights.get(neighbor) || total_weight < weights.get(neighbor)) {
           pending.push(neighbor)

@@ -1,7 +1,7 @@
 import SideWinder from '../mazes/algorithms/SideWinder.js'
 import Grid from '../mazes/Grid.js'
 
-const grid = new Grid(8, 8, 'weighted')
+const grid = new Grid(8, 8)
 SideWinder.on(grid)
 
 const [farthest_id] = grid.first_cell.distances.max()
