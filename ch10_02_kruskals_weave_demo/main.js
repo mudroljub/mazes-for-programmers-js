@@ -17,7 +17,5 @@ Kruskals.on(grid, state)
 const cellSize = 30
 grid.draw(cellSize, 0.3)
 
-const { middle_cell } = grid
-grid.distances = middle_cell.distances
-
+grid.init_distances()
 console.log(grid.toString())

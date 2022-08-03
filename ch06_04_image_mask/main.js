@@ -16,4 +16,6 @@ const output = document.getElementById('output')
 output.width = cellSize * image.width + 1
 output.height = cellSize * image.height + 1
 const ctx2 = output.getContext('2d')
+
+grid.init_distances(grid.random_cell)
 grid.draw(cellSize, 0, ctx2)
