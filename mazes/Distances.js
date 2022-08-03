@@ -1,3 +1,5 @@
+import { sample } from './utils.js'
+
 export default class Distances {
   constructor(root) {
     this.root = root
@@ -13,9 +15,8 @@ export default class Distances {
     this.cells[cell.id] = distance
   }
 
-  get random_id() {
-    const cells = Object.keys(this.cells)
-    return cells[Math.floor(Math.random() * cells.length)]
+  get random() {
+    return sample(Object.keys(this.cells))
   }
 
   path_to(goal) {

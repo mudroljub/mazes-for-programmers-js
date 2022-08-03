@@ -1,4 +1,6 @@
-/* depth-first search algorithm */
+import { sample } from '../utils.js'
+
+/* depth-first search */
 export default class RecursiveBacktracker {
   static on(grid, start_at = grid.random_cell) {
     const stack = [start_at]
@@ -9,7 +11,7 @@ export default class RecursiveBacktracker {
       if (!neighbors.length)
         stack.pop()
       else {
-        const neighbor = neighbors[Math.floor(Math.random() * neighbors.length)]
+        const neighbor = sample(neighbors)
         current.link(neighbor)
         stack.push(neighbor)
       }
