@@ -3,7 +3,7 @@ import { UnderCell } from './WeaveCells.js'
 
 export default class WeaveGrid extends Grid {
   constructor(rows, columns) {
-    super(rows, columns, 'wave')
+    super(rows, columns)
     this.under_cells = []
   }
 

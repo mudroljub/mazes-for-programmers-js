@@ -1,7 +1,9 @@
+import { shadeOfGreen, shadeOfPurple, shuffle } from './utils.js'
 import Cell from './Cell.js'
 import WeightedCell from './WeightedCell.js'
 import { OverCell } from './WeaveCells.js'
-import { shadeOfGreen, shadeOfPurple, shuffle } from './utils.js'
+import HexCell from './HexCell.js'
+import TriangleCell from './TriangleCell.js'
 
 const defaultCanvas = document.getElementById('output')
 const defaultContext = defaultCanvas?.getContext('2d')
@@ -16,18 +18,22 @@ const getCell = type => {
   switch (type) {
     case 'weighted':
       return WeightedCell
-    case 'weave':
+    case 'WeaveGrid':
       return OverCell
+    case 'HexGrid':
+      return HexCell
+    case 'TriangleGrid':
+      return TriangleCell
     default:
       return Cell
   }
 }
 
 export default class Grid {
-  constructor(rows = 20, columns = rows, type = 'weighted') {
+  constructor(rows = 20, columns = rows, type) {
     this.rows = rows
     this.columns = columns
-    this.prepare_grid(getCell(type))
+    this.prepare_grid(getCell(type || this.constructor.name))
     this.configure_cells()
   }
 

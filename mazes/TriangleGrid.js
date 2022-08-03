@@ -1,24 +1,13 @@
 import Grid from './Grid.js'
-import TriangleCell from './TriangleCell.js'
 
 const output = document.getElementById('output')
 const ctx = output.getContext('2d')
 
 export default class TriangleGrid extends Grid {
 
-  prepare_grid() {
-    this.grid = new Array(this.rows)
-    for (let i = 0; i < this.rows; i += 1) {
-      this.grid[i] = new Array(this.columns)
-      for (let j = 0; j < this.columns; j += 1)
-        this.grid[i][j] = new TriangleCell(i, j)
-    }
-  }
-
   configure_cells() {
     for (const cell of this.each_cell()) {
       const { row, column: col } = cell
-
       cell.west = this.cell(row, col - 1)
       cell.east = this.cell(row, col + 1)
       if (cell.isUpright())
