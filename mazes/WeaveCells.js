@@ -23,15 +23,6 @@ export class OverCell extends Cell {
       super.link(cell, bidi)
   }
 
-  get neighbors() {
-    const list = super.neighbors
-    if (this.can_tunnel_north) list.push(this.north.north)
-    if (this.can_tunnel_south) list.push(this.south.south)
-    if (this.can_tunnel_east) list.push(this.east.east)
-    if (this.can_tunnel_west) list.push(this.west.west)
-    return list
-  }
-
   get can_tunnel_north() {
     return this.north?.north && this.north.horizontal_passage
   }
@@ -86,17 +77,5 @@ export class UnderCell extends Cell {
 
   get vertical_passage() {
     return this.north || this.south
-  }
-}
-
-export class SimpleOverCell extends OverCell {
-  // the same as Cell
-  get neighbors() {
-    const list = []
-    if (this.north) list.push(this.north)
-    if (this.south) list.push(this.south)
-    if (this.east) list.push(this.east)
-    if (this.west) list.push(this.west)
-    return list
   }
 }
