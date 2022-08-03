@@ -1,4 +1,4 @@
-import Cell from './Cell.js'
+import Cell from '../mazes/Cell.js'
 
 export default class PolarCell extends Cell {
   constructor(row, column) {
@@ -10,7 +10,7 @@ export default class PolarCell extends Cell {
     this.inward = null
   }
 
-  neighbors() {
+  get neighbors() {
     const list = []
     if (this.cw)	 list.push(this.cw)
     if (this.ccw)	 list.push(this.ccw)

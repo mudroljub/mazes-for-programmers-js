@@ -1,5 +1,5 @@
-import RecursiveBacktracker from './RecursiveBacktracker.js'
-// import RecursiveBacktracker from '../mazes/algorithms/RecursiveBacktracker.js'
+// import RecursiveBacktracker from './RecursiveBacktracker.js'
+import RecursiveBacktracker from '../mazes/algorithms/RecursiveBacktracker.js'
 import PolarGrid from './PolarGrid.js'
 
 const rows = 8

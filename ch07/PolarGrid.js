@@ -40,8 +40,8 @@ export default class PolarGrid extends Grid {
       const col = cell.column
 
       if (row > 0) {
-        cell.cw = this.get_cell(row, col + 1)
-        cell.ccw = this.get_cell(row, col - 1)
+        cell.cw = this.cell(row, col + 1)
+        cell.ccw = this.cell(row, col - 1)
 
         const ratio = this.grid[row].length / this.grid[row - 1].length
         const parent = this.grid[row - 1][Math.floor(col / ratio)]
@@ -52,17 +52,17 @@ export default class PolarGrid extends Grid {
     }
   }
 
-  get_cell(row, column) {
+  cell(row, column) {
     if (row < 0 || row > this.rows - 1) 		 return null
     // if (column < 0 || column > this.grid[row].length) return null
     return this.grid[row][column % this.grid[row].length]
   }
 
-  get_random_cell() {
+  get random_cell() {
     const row = Math.floor(Math.random() * this.rows)
     const col = Math.floor(Math.random() * this.grid[row].length)
 
-    return this.get_cell(row, col)
+    return this.cell(row, col)
   }
 
   to_img(ctx, cellSize = 10) {
@@ -92,12 +92,12 @@ export default class PolarGrid extends Grid {
       const dx = center + Math.floor(outer_radius * Math.cos(theta_cw))
       const dy = center + Math.floor(outer_radius * Math.sin(theta_cw))
 
-      if ((cell.inward && !cell.isLinked(cell.inward)) || !cell.inward) {
+      if ((cell.inward && !cell.linked(cell.inward)) || !cell.inward) {
         ctx.moveTo(ax, ay)
         ctx.lineTo(cx, cy)
         ctx.stroke()
       }
-      if ((cell.cw && !cell.isLinked(cell.cw)) || !cell.cw) {
+      if ((cell.cw && !cell.linked(cell.cw)) || !cell.cw) {
         ctx.moveTo(cx, cy)
         ctx.lineTo(dx, dy)
         ctx.stroke()

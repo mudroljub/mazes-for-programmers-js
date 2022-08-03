@@ -1,4 +1,4 @@
-import Cell from './Cell.js'
+import Cell from '../mazes/Cell.js'
 
 export default class Grid {
   constructor(rows, columns) {
@@ -22,29 +22,29 @@ export default class Grid {
   configure_cells() {
     for (let i = 0; i < this.rows; i += 1)
       for (let j = 0; j < this.columns; j += 1) {
-        const cell = this.get_cell(i, j)
+        const cell = this.cell(i, j)
         if (cell == null) continue
         const { row } = cell
         const col = cell.column
-        if (row > 0) cell.north = this.get_cell(row - 1, col)
-        if (row < this.rows - 1) cell.south = this.get_cell(row + 1, col)
-        if (col > 0) cell.west = this.get_cell(row, col - 1)
-        if (col < this.columns - 1) cell.east = this.get_cell(row, col + 1)
+        if (row > 0) cell.north = this.cell(row - 1, col)
+        if (row < this.rows - 1) cell.south = this.cell(row + 1, col)
+        if (col > 0) cell.west = this.cell(row, col - 1)
+        if (col < this.columns - 1) cell.east = this.cell(row, col + 1)
       }
 
   }
 
-  get_cell(row, column) {
+  cell(row, column) {
     if (row < 0 || row > this.rows - 1) return null
     if (column < 0 || column > this.grid[row].length - 1) return null
     return this.grid[row][column]
   }
 
-  get_random_cell() {
+  get random_cell() {
     const row = Math.floor(Math.random() * this.rows)
     const column = Math.floor(Math.random() * this.grid[row].length)
 
-    return this.get_cell(row, column)
+    return this.cell(row, column)
   }
 
   size() {
@@ -88,10 +88,10 @@ export default class Grid {
         if (!cell) cell = new Cell(-1, -1)
 
         const body = '   '
-        const east_boundary = (cell.east && cell.isLinked(cell.east)) ? ' ' : '|'
+        const east_boundary = (cell.east && cell.linked(cell.east)) ? ' ' : '|'
         top += body + east_boundary
 
-        const south_boundary = (cell.south && cell.isLinked(cell.south)) ? '   ' : '---'
+        const south_boundary = (cell.south && cell.linked(cell.south)) ? '   ' : '---'
         const corner = '+'
         bottom += south_boundary + corner
       }
@@ -125,12 +125,12 @@ export default class Grid {
         ctx.lineTo(x1, y2)
         ctx.stroke()
       }
-      if ((cell.east && !cell.isLinked(cell.east)) || !cell.east) {
+      if ((cell.east && !cell.linked(cell.east)) || !cell.east) {
         ctx.moveTo(x2, y1)
         ctx.lineTo(x2, y2)
         ctx.stroke()
       }
-      if ((cell.south && !cell.isLinked(cell.south)) || !cell.south) {
+      if ((cell.south && !cell.linked(cell.south)) || !cell.south) {
         ctx.moveTo(x1, y2)
         ctx.lineTo(x2, y2)
         ctx.stroke()
@@ -145,7 +145,7 @@ export default class Grid {
     while (true) {
       const cell = cell_gen.next().value
       if (!cell) break
-      if (cell.get_links().length == 1)
+      if (cell.links.length == 1)
         list.push(cell)
 
     }
