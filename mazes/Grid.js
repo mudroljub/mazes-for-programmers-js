@@ -1,5 +1,6 @@
 import Cell from './Cell.js'
-import { shadeOfGreen, shuffle } from './utils.js'
+import WeightedCell from './WeightedCell.js'
+import { shadeOfGreen, shadeOfYellow, shuffle } from './utils.js'
 
 const defaultCanvas = document.getElementById('output')
 const defaultContext = defaultCanvas?.getContext('2d')
@@ -9,19 +10,19 @@ if (defaultCanvas) {
 }
 
 export default class Grid {
-  constructor(rows = 20, columns = rows) {
+  constructor(rows = 20, columns = rows, type = 'weighted') {
     this.rows = rows
     this.columns = columns
-    this.prepare_grid()
+    this.prepare_grid(type == 'weighted' ? WeightedCell : Cell)
     this.configure_cells()
   }
 
-  prepare_grid() {
+  prepare_grid(CellType = Cell) {
     this.grid = new Array(this.rows)
     for (let i = 0; i < this.rows; i += 1) {
       this.grid[i] = new Array(this.columns)
       for (let j = 0; j < this.columns; j += 1)
-        this.grid[i][j] = new Cell(i, j)
+        this.grid[i][j] = new CellType(i, j)
     }
   }
 
@@ -93,15 +94,24 @@ export default class Grid {
     this.distances = cell.distances
   }
 
+  // background_color_for(cell) {
+  //   if (!this.distances) return 'white'
+  //   const distance = this.distances.get(cell)
+  //   return shadeOfGreen(this.maximum, distance)
+  // }
+
   background_color_for(cell) {
+    if (cell.weight > 1) return 'red'
     if (!this.distances) return 'white'
     const distance = this.distances.get(cell)
-    return shadeOfGreen(this.maximum, distance)
+    if (!distance) return 'white'
+    return shadeOfGreen (this.maximum, distance)
   }
 
   contents_of(cell) {
-    if (this.distances && this.distances.get(cell))
-      return this.distances.get(cell).toString(36) // base-36 int, because we’re limited to one character
+    const distance = this.distances?.get(cell)
+    if (distance >= 0)
+      return distance.toString(36) // base-36 int, because we’re limited to one character
     return ' '
   }
 
@@ -112,7 +122,7 @@ export default class Grid {
       let top = '|'
       let bottom = '+'
       for (const cell of row) {
-        if (!cell) continue
+        // if (!cell) continue
         const body = ` ${this.contents_of(cell)} `
         const east_boundary = cell.linked(cell.east) ? ' ' : '|'
         top += body + east_boundary

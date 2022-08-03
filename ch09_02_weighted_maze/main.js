@@ -1,7 +1,7 @@
-import WeightedGrid from '../mazes/WeightedGrid.js'
+import Grid from '../mazes/Grid.js'
 import RecursiveBacktracker from '../mazes/algorithms/RecursiveBacktracker.js'
 
-const grid = new WeightedGrid(20)
+const grid = new Grid(20, 20, 'weighted')
 RecursiveBacktracker.on(grid)
 grid.braid(1) // if not braided there's only one path
 
