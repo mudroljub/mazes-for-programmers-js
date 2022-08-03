@@ -193,6 +193,11 @@ export default class Grid {
     }
   }
 
+  resize_canvas(canvas, cellSize) {
+    canvas.width = cellSize * this.rows + 1
+    canvas.height = cellSize * this.columns + 1
+  }
+
   get deadends() {
     const list = []
     for (const cell of this.each_cell())

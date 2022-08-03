@@ -2,8 +2,8 @@ import Grid from './Grid.js'
 import WeightedCell from './WeightedCell.js'
 import { shadeOfYellow } from './utils.js'
 
-const defaultCanvas = document.getElementById('output')
-const defaultContext = defaultCanvas.getContext('2d')
+// const defaultCanvas = document.getElementById('output')
+// const defaultContext = defaultCanvas.getContext('2d')
 
 export default class WeightedGrid extends Grid {
   prepare_grid() {
@@ -23,41 +23,41 @@ export default class WeightedGrid extends Grid {
     return shadeOfYellow (this.maximum, distance)
   }
 
-  draw(cellSize, ctx = defaultContext) {
-    ctx.canvas.width = cellSize * this.rows + 1
-    ctx.canvas.height = cellSize * this.columns + 1
+  // draw(cellSize, ctx = defaultContext) {
+  //   ctx.canvas.width = cellSize * this.rows + 1
+  //   ctx.canvas.height = cellSize * this.columns + 1
 
-    for (const cell of this.each_cell()) {
-      const x1 = cell.column * cellSize
-      const y1 = cell.row * cellSize
-      const x2 = (cell.column + 1) * cellSize
-      const y2 = (cell.row + 1) * cellSize
+  //   for (const cell of this.each_cell()) {
+  //     const x1 = cell.column * cellSize
+  //     const y1 = cell.row * cellSize
+  //     const x2 = (cell.column + 1) * cellSize
+  //     const y2 = (cell.row + 1) * cellSize
 
-      if (this.distances) {
-        ctx.fillStyle = this.background_color_for(cell)
-        ctx.fillRect(x1, y1, cellSize, cellSize)
-      }
+  //     if (this.distances) {
+  //       ctx.fillStyle = this.background_color_for(cell)
+  //       ctx.fillRect(x1, y1, cellSize, cellSize)
+  //     }
 
-      if (!cell.north) {
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y1)
-        ctx.stroke()
-      }
-      if (!cell.west) {
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x1, y2)
-        ctx.stroke()
-      }
-      if (!cell.linked(cell.east)) {
-        ctx.moveTo(x2, y1)
-        ctx.lineTo(x2, y2)
-        ctx.stroke()
-      }
-      if (!cell.linked(cell.south)) {
-        ctx.moveTo(x1, y2)
-        ctx.lineTo(x2, y2)
-        ctx.stroke()
-      }
-    }
-  }
+  //     if (!cell.north) {
+  //       ctx.moveTo(x1, y1)
+  //       ctx.lineTo(x2, y1)
+  //       ctx.stroke()
+  //     }
+  //     if (!cell.west) {
+  //       ctx.moveTo(x1, y1)
+  //       ctx.lineTo(x1, y2)
+  //       ctx.stroke()
+  //     }
+  //     if (!cell.linked(cell.east)) {
+  //       ctx.moveTo(x2, y1)
+  //       ctx.lineTo(x2, y2)
+  //       ctx.stroke()
+  //     }
+  //     if (!cell.linked(cell.south)) {
+  //       ctx.moveTo(x1, y2)
+  //       ctx.lineTo(x2, y2)
+  //       ctx.stroke()
+  //     }
+  //   }
+  // }
 }
