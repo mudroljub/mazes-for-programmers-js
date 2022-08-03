@@ -1,5 +1,6 @@
 import Cell from './Cell.js'
 import WeightedCell from './WeightedCell.js'
+import { OverCell } from './WeaveCells.js'
 import { shadeOfGreen, shadeOfPurple, shuffle } from './utils.js'
 
 const defaultCanvas = document.getElementById('output')
@@ -9,13 +10,24 @@ if (defaultCanvas) {
   defaultCanvas.height = 600
 }
 
-const shadeOff = Math.random() > 0.5 ? shadeOfGreen : shadeOfPurple
+const shade = Math.random() > 0.5 ? shadeOfGreen : shadeOfPurple
+
+const getCell = type => {
+  switch (type) {
+    case 'weighted':
+      return WeightedCell
+    case 'weave':
+      return OverCell
+    default:
+      return Cell
+  }
+}
 
 export default class Grid {
   constructor(rows = 20, columns = rows, type = 'weighted') {
     this.rows = rows
     this.columns = columns
-    this.prepare_grid(type == 'weighted' ? WeightedCell : Cell)
+    this.prepare_grid(getCell(type))
     this.configure_cells()
   }
 
@@ -100,7 +112,7 @@ export default class Grid {
     if (cell.weight > 1) return 'red'
     const distance = this.distances?.get(cell)
     if (distance === undefined) return 'white'
-    return shadeOff(this.maximum, distance)
+    return shade(this.maximum, distance)
   }
 
   contents_of(cell) {

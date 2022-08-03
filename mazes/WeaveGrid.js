@@ -1,19 +1,10 @@
 import Grid from './Grid.js'
-import { OverCell, UnderCell } from './WeaveCells.js'
+import { UnderCell } from './WeaveCells.js'
 
 export default class WeaveGrid extends Grid {
   constructor(rows, columns) {
-    super(rows, columns)
+    super(rows, columns, 'wave')
     this.under_cells = []
-  }
-
-  prepare_grid() {
-    this.grid = new Array(this.rows)
-    for (let i = 0; i < this.rows; i += 1) {
-      this.grid[i] = new Array(this.columns)
-      for (let j = 0; j < this.columns; j += 1)
-        this.grid[i][j] = new OverCell(i, j, this)
-    }
   }
 
   tunnel_under(over_cell) {
