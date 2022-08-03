@@ -8,18 +8,21 @@ let grid = new Grid(20)
 GrowingTree.on(grid, sample)
 
 const cellSize = 20
-grid.drawDistance(cellSize)
+grid.distances = grid.middle_cell.distances
+grid.draw(cellSize)
 
 grid = new Grid(20)
 GrowingTree.on(grid, last)
 
 const output2 = document.getElementById('output2')
 const ctx2 = output2.getContext('2d')
-grid.drawDistance(cellSize, ctx2)
+grid.distances = grid.middle_cell.distances
+grid.draw(cellSize, 0, ctx2)
 
 grid = new Grid(20)
 GrowingTree.on(grid, arr => Math.random() < 0.5 ? last(arr) : sample(arr))
 
 const output3 = document.getElementById('output3')
 const ctx3 = output3.getContext('2d')
-grid.drawDistance(cellSize, ctx3)
+grid.distances = grid.middle_cell.distances
+grid.draw(cellSize, 0, ctx3)

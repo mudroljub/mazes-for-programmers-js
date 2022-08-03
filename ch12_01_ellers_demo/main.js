@@ -4,4 +4,5 @@ import Ellers from '../mazes/algorithms/Ellers.js'
 const grid = new Grid(20)
 Ellers.on(grid)
 
-grid.drawDistance()
+grid.distances = grid.middle_cell.distances
+grid.draw()

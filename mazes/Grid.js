@@ -117,45 +117,6 @@ export default class Grid {
     return output
   }
 
-  // TODO: drawDistance with inset
-  drawDistance(cellSize = 20, ctx = defaultContext) {
-    if (!this.distances) this.distances = this.middle_cell.distances
-
-    ctx.canvas.width = cellSize * this.rows + 1
-    ctx.canvas.height = cellSize * this.columns + 1
-
-    for (const cell of this.each_cell()) {
-      const x1 = cell.column * cellSize
-      const y1 = cell.row * cellSize
-      const x2 = (cell.column + 1) * cellSize
-      const y2 = (cell.row + 1) * cellSize
-
-      ctx.fillStyle = this.background_color_for(cell) // calc distance
-      ctx.fillRect(x1, y1, cellSize, cellSize)
-
-      if (!cell.north) {
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y1)
-        ctx.stroke()
-      }
-      if (!cell.west) {
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x1, y2)
-        ctx.stroke()
-      }
-      if ((cell.east && !cell.linked(cell.east)) || !cell.east) {
-        ctx.moveTo(x2, y1)
-        ctx.lineTo(x2, y2)
-        ctx.stroke()
-      }
-      if ((cell.south && !cell.linked(cell.south)) || !cell.south) {
-        ctx.moveTo(x1, y2)
-        ctx.lineTo(x2, y2)
-        ctx.stroke()
-      }
-    }
-  }
-
   draw(cellSize = 20, inset = 0, ctx = defaultContext) {
     ctx.canvas.width = cellSize * this.rows + 1
     ctx.canvas.height = cellSize * this.columns + 1
@@ -176,6 +137,9 @@ export default class Grid {
     const y2 = y1 + inset
     const y4 = y1 + cellSize
     const y3 = y4 - inset
+
+    ctx.fillStyle = this.background_color_for(cell)
+    ctx.fillRect(x1, y1, cellSize, cellSize)
 
     if (cell.linked(cell.north)) {
       ctx.moveTo(x2, y1)

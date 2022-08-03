@@ -4,4 +4,5 @@ import RecursiveBacktracker from '../mazes/algorithms/RecursiveBacktracker.js'
 const grid = new Grid(20)
 RecursiveBacktracker.on(grid)
 
-grid.drawDistance()
+grid.distances = grid.middle_cell.distances
+grid.draw()

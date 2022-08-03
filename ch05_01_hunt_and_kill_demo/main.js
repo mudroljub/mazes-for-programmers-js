@@ -7,7 +7,5 @@ HuntAndKill.on(grid)
 
 console.log(grid.toString())
 
-const start = grid.middle_cell
-grid.distances = start.distances
-
-grid.drawDistance()
+grid.distances = grid.middle_cell.distances
+grid.draw()
