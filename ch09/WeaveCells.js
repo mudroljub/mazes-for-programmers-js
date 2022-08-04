@@ -10,22 +10,21 @@ export class OverCell extends Cell {
     let neighbor = null
     if (this.north && cell.south && this.north.get_id() == cell.south.get_id())
       neighbor = this.north
-		 else if (this.south && cell.north && this.south.get_id() == cell.north.get_id())
+    else if (this.south && cell.north && this.south.get_id() == cell.north.get_id())
       neighbor = this.south
-		 else if (this.east && cell.west && this.east.get_id() == cell.west.get_id())
+    else if (this.east && cell.west && this.east.get_id() == cell.west.get_id())
       neighbor = this.east
-		 else if (this.west && cell.east && this.west.get_id() == cell.east.get_id())
+    else if (this.west && cell.east && this.west.get_id() == cell.east.get_id())
       neighbor = this.west
 
     if (neighbor)
       this.grid.tunnel_under(neighbor)
-		 else
+    else
       super.link(cell, bidi)
-
   }
 
-  neighbors() {
-    const list = super.neighbors()
+  get neighbors() {
+    const list = super.neighbors
     if (this.can_tunnel_north()) list.push(this.north.north)
     if (this.can_tunnel_south()) list.push(this.south.south)
     if (this.can_tunnel_east()) list.push(this.east.east)
@@ -51,16 +50,16 @@ export class OverCell extends Cell {
 
   is_horizontal_passage() {
     return (this.east && this.linked(this.east)) &&
-			   (this.west && this.linked(this.west)) &&
-			   (this.north && !this.linked(this.north)) &&
-			   (this.south && !this.linked(this.south))
+      (this.west && this.linked(this.west)) &&
+      (this.north && !this.linked(this.north)) &&
+      (this.south && !this.linked(this.south))
   }
 
   is_vertical_passage() {
     return (this.east && !this.linked(this.east)) &&
-			   (this.west && !this.linked(this.west)) &&
-			   (this.north && this.linked(this.north)) &&
-			   (this.south && this.linked(this.south))
+      (this.west && !this.linked(this.west)) &&
+      (this.north && this.linked(this.north)) &&
+      (this.south && this.linked(this.south))
   }
 }
 

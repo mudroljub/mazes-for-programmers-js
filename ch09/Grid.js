@@ -239,7 +239,7 @@ export default class Grid {
       if (cell.links_length != 1 || Math.random() > p)
         return
 
-      const neighbors = cell.neighbors().filter(c => !c.linked(cell))
+      const neighbors = cell.neighbors.filter(c => !c.linked(cell))
       let best = neighbors.filter(c => c.links_length == 1)
       if (best.length == 0) best = neighbors
 
