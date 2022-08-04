@@ -42,7 +42,7 @@ export default class Grid {
     for (let i = 0; i < this.rows; i += 1) {
       this.grid[i] = new Array(this.columns)
       for (let j = 0; j < this.columns; j += 1)
-        this.grid[i][j] = new CellType(i, j)
+        this.grid[i][j] = new CellType(i, j, this) // this is needed for OverCell
     }
   }
 
