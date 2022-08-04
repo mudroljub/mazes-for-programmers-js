@@ -23,7 +23,7 @@ export default class Cell {
     return Object.keys(this.links)
   }
 
-  isLinked(cell) {
+  linked(cell) {
     return this.links.hasOwnProperty(cell.get_id())
   }
 
@@ -51,8 +51,8 @@ export default class Cell {
         const cell = frontier[i]
         for (const link in cell.links) {
           const linkedCell = cell.links[link]
-          if (linkedCell && distances.get_cell(linkedCell) == undefined) {
-            distances.set_cell(linkedCell, distances.get_cell(cell) + 1)
+          if (linkedCell && distances.cell(linkedCell) == undefined) {
+            distances.set_cell(linkedCell, distances.cell(cell) + 1)
             new_frontier.push(linkedCell)
           }
         }

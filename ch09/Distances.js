@@ -5,7 +5,7 @@ export default class Distances {
     this.cells[this.root.get_id()] = 0
   }
 
-  get_cell(cell) {
+  cell(cell) {
     return this.cells[cell.get_id()]
   }
 
@@ -21,13 +21,13 @@ export default class Distances {
     let current = goal
 
     const breadcrumbs = new Distances(this.root)
-    breadcrumbs.set_cell(current, this.get_cell(current))
+    breadcrumbs.set_cell(current, this.cell(current))
 
     while (current.get_id() !== this.root.get_id())
       for (const link in current.links) {
         const neighbor = current.links[link]
-        if (this.get_cell(neighbor) < this.get_cell(current)) {
-          breadcrumbs.set_cell(neighbor, this.get_cell(neighbor))
+        if (this.cell(neighbor) < this.cell(current)) {
+          breadcrumbs.set_cell(neighbor, this.cell(neighbor))
           current = neighbor
           break
         }

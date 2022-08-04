@@ -50,17 +50,17 @@ export class OverCell extends Cell {
   }
 
   is_horizontal_passage() {
-    return (this.east && this.isLinked(this.east)) &&
-			   (this.west && this.isLinked(this.west)) &&
-			   (this.north && !this.isLinked(this.north)) &&
-			   (this.south && !this.isLinked(this.south))
+    return (this.east && this.linked(this.east)) &&
+			   (this.west && this.linked(this.west)) &&
+			   (this.north && !this.linked(this.north)) &&
+			   (this.south && !this.linked(this.south))
   }
 
   is_vertical_passage() {
-    return (this.east && !this.isLinked(this.east)) &&
-			   (this.west && !this.isLinked(this.west)) &&
-			   (this.north && this.isLinked(this.north)) &&
-			   (this.south && this.isLinked(this.south))
+    return (this.east && !this.linked(this.east)) &&
+			   (this.west && !this.linked(this.west)) &&
+			   (this.north && this.linked(this.north)) &&
+			   (this.south && this.linked(this.south))
   }
 }
 

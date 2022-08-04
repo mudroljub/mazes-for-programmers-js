@@ -22,32 +22,32 @@ export default class Grid {
   configure_cells() {
     for (let i = 0; i < this.rows; i += 1)
       for (let j = 0; j < this.columns; j += 1) {
-        const cell = this.get_cell(i, j)
+        const cell = this.cell(i, j)
         if (cell == null) continue
         const { row } = cell
         const col = cell.column
-        if (row > 0) cell.north = this.get_cell(row - 1, col)
-        if (row < this.rows - 1) cell.south = this.get_cell(row + 1, col)
-        if (col > 0) cell.west = this.get_cell(row, col - 1)
-        if (col < this.columns - 1) cell.east = this.get_cell(row, col + 1)
+        if (row > 0) cell.north = this.cell(row - 1, col)
+        if (row < this.rows - 1) cell.south = this.cell(row + 1, col)
+        if (col > 0) cell.west = this.cell(row, col - 1)
+        if (col < this.columns - 1) cell.east = this.cell(row, col + 1)
       }
 
   }
 
-  get_cell(row, column) {
-    if (row < 0 || row > this.rows - 1) 		 return null
+  cell(row, column) {
+    if (row < 0 || row > this.rows - 1) return null
     if (column < 0 || column > this.grid[row].length - 1) return null
     return this.grid[row][column]
   }
 
-  get_random_cell() {
+  get random_cell() {
     const row = Math.floor(Math.random() * this.rows)
     const column = Math.floor(Math.random() * this.grid[row].length)
 
-    return this.get_cell(row, column)
+    return this.cell(row, column)
   }
 
-  size() {
+  get size() {
     return this.rows * this.columns
   }
 
@@ -63,9 +63,7 @@ export default class Grid {
       const row = row_gen.next().value
       for (let j = 0; j < row.length; j += 1)
         if (row[j]) yield row[j]
-
     }
-
   }
 
   contents_of(cell) {
@@ -88,23 +86,21 @@ export default class Grid {
         if (!cell) cell = new Cell(-1, -1)
 
         const body = '   '
-        const east_boundary = (cell.east && cell.isLinked(cell.east)) ? ' ' : '|'
+        const east_boundary = (cell.east && cell.linked(cell.east)) ? ' ' : '|'
         top += body + east_boundary
 
-        const south_boundary = (cell.south && cell.isLinked(cell.south)) ? '   ' : '---'
+        const south_boundary = (cell.south && cell.linked(cell.south)) ? '   ' : '---'
         const corner = '+'
         bottom += south_boundary + corner
       }
-
       output += top + '\n'
       output += bottom + '\n'
     }
     return output
   }
 
-  to_img(ctx, cellSize = 10, inset = 0) {
+  draw(ctx, cellSize = 10, inset = 0) {
     ctx.strokeStyle = 'black'
-
     inset = Math.floor(cellSize * inset)
 
     const cell_gen = this.each_cell()
@@ -117,9 +113,8 @@ export default class Grid {
 
       if (inset > 0)
         this.to_img_with_inset(ctx, cell, cellSize, x, y, inset)
-			 else
+      else
         this.to_img_without_inset(ctx, cell, cellSize, x, y)
-
     }
   }
 
@@ -139,12 +134,12 @@ export default class Grid {
       ctx.lineTo(x1, y2)
       ctx.stroke()
     }
-    if ((cell.east && !cell.isLinked(cell.east)) || !cell.east) {
+    if ((cell.east && !cell.linked(cell.east)) || !cell.east) {
       ctx.moveTo(x2, y1)
       ctx.lineTo(x2, y2)
       ctx.stroke()
     }
-    if ((cell.south && !cell.isLinked(cell.south)) || !cell.south) {
+    if ((cell.south && !cell.linked(cell.south)) || !cell.south) {
       ctx.moveTo(x1, y2)
       ctx.lineTo(x2, y2)
       ctx.stroke()
@@ -169,7 +164,7 @@ export default class Grid {
     let x1, x2, x3, x4, y1, y2, y3, y4;
     [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
 
-    if (cell.north && cell.isLinked(cell.north)) {
+    if (cell.north && cell.linked(cell.north)) {
       ctx.moveTo(x2, y1)
       ctx.lineTo(x2, y2)
       ctx.moveTo(x3, y1)
@@ -180,7 +175,7 @@ export default class Grid {
       ctx.lineTo(x3, y2)
       ctx.stroke()
     }
-    if (cell.south && cell.isLinked(cell.south)) {
+    if (cell.south && cell.linked(cell.south)) {
       ctx.moveTo(x2, y3)
       ctx.lineTo(x2, y4)
       ctx.moveTo(x3, y3)
@@ -191,7 +186,7 @@ export default class Grid {
       ctx.lineTo(x3, y3)
       ctx.stroke()
     }
-    if (cell.west && cell.isLinked(cell.west)) {
+    if (cell.west && cell.linked(cell.west)) {
       ctx.moveTo(x1, y2)
       ctx.lineTo(x2, y2)
       ctx.moveTo(x1, y3)
@@ -202,7 +197,7 @@ export default class Grid {
       ctx.lineTo(x2, y3)
       ctx.stroke()
     }
-    if (cell.east && cell.isLinked(cell.east)) {
+    if (cell.east && cell.linked(cell.east)) {
       ctx.moveTo(x3, y2)
       ctx.lineTo(x4, y2)
       ctx.moveTo(x3, y3)
@@ -215,7 +210,7 @@ export default class Grid {
     }
   }
 
-  deadends() {
+  get deadends() {
     const list = []
 
     const cell_gen = this.each_cell()
@@ -240,14 +235,14 @@ export default class Grid {
   }
 
   braid(p = 1.0) {
-    const deadends = this.deadends()
+    const { deadends } = this
     this.shuffle(deadends)
 
     deadends.forEach(cell => {
       if (cell.get_links().length != 1 || Math.random() > p)
         return
 
-      const neighbors = cell.neighbors().filter(c => !c.isLinked(cell))
+      const neighbors = cell.neighbors().filter(c => !c.linked(cell))
       let best = neighbors.filter(c => c.get_links().length == 1)
       if (best.length == 0) best = neighbors
 
