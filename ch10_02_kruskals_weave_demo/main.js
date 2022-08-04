@@ -1,9 +1,7 @@
 import Kruskals, { State } from '../mazes/algorithms/Kruskals.js'
 import WeaveGrid from '../mazes/WeaveGrid.js'
 
-const h = 20
-const w = 20
-const grid = new WeaveGrid(h, w)
+const grid = new WeaveGrid(20)
 const state = new State(grid)
 
 for (let i = 0; i < grid.size; i += 1) {
@@ -14,9 +12,8 @@ for (let i = 0; i < grid.size; i += 1) {
 
 Kruskals.on(grid, state)
 grid.braid(0.3)
-const cellSize = 30
 
 grid.init_distances()
-console.log(grid.toString())
 
+const cellSize = 30
 grid.draw(cellSize, 0.3)
