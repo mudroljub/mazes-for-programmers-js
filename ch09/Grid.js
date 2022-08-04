@@ -1,4 +1,4 @@
-import Cell from './Cell.js'
+import Cell from '../mazes/Cell.js'
 
 export default class Grid {
   constructor(rows, columns) {

@@ -1,4 +1,4 @@
-import Cell from './Cell.js'
+import Cell from '../mazes/Cell.js'
 
 export class OverCell extends Cell {
   constructor(row, column, grid) {
