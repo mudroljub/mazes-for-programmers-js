@@ -27,6 +27,10 @@ export default class Cell {
     return this.links.hasOwnProperty(cell.get_id())
   }
 
+  get unvisited() {
+    return this.links_length == 0
+  }
+
   get neighbors() {
     const list = []
     if (this.north) list.push(this.north)
