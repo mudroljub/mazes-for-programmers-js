@@ -15,7 +15,6 @@ grid.draw(cellSize, 0, ctx1)
 
 const lava_cell = grid.cell_by_id(grid.distances.random)
 lava_cell.weight = 50
-
 grid.init_path()
 
 const output2 = document.getElementById('output2')
