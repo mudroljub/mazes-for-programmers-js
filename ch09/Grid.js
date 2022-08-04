@@ -212,16 +212,13 @@ export default class Grid {
 
   get deadends() {
     const list = []
-
     const cell_gen = this.each_cell()
     while (true) {
       const cell = cell_gen.next().value
       if (!cell) break
-      if (cell.get_links().length == 1)
+      if (cell.links_length == 1)
         list.push(cell)
-
     }
-
     return list
   }
 
@@ -239,11 +236,11 @@ export default class Grid {
     this.shuffle(deadends)
 
     deadends.forEach(cell => {
-      if (cell.get_links().length != 1 || Math.random() > p)
+      if (cell.links_length != 1 || Math.random() > p)
         return
 
       const neighbors = cell.neighbors().filter(c => !c.linked(cell))
-      let best = neighbors.filter(c => c.get_links().length == 1)
+      let best = neighbors.filter(c => c.links_length == 1)
       if (best.length == 0) best = neighbors
 
       const neighbor = best[Math.floor(Math.random() * best.length)]
