@@ -25,26 +25,26 @@ export class OverCell extends Cell {
 
   get neighbors() {
     const list = super.neighbors
-    if (this.can_tunnel_north()) list.push(this.north.north)
-    if (this.can_tunnel_south()) list.push(this.south.south)
-    if (this.can_tunnel_east()) list.push(this.east.east)
-    if (this.can_tunnel_west()) list.push(this.west.west)
+    if (this.can_tunnel_north) list.push(this.north.north)
+    if (this.can_tunnel_south) list.push(this.south.south)
+    if (this.can_tunnel_east) list.push(this.east.east)
+    if (this.can_tunnel_west) list.push(this.west.west)
     return list
   }
 
-  can_tunnel_north() {
+  get can_tunnel_north() {
     return this.north && this.north.north && this.north.horizontal_passage
   }
 
-  can_tunnel_south() {
+  get can_tunnel_south() {
     return this.south && this.south.south && this.south.horizontal_passage
   }
 
-  can_tunnel_east() {
+  get can_tunnel_east() {
     return this.east && this.east.east && this.east.vertical_passage
   }
 
-  can_tunnel_west() {
+  get can_tunnel_west() {
     return this.west && this.west.west && this.west.vertical_passage
   }
 
