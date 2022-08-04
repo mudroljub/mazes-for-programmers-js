@@ -6,8 +6,6 @@ const w = 20
 const grid = new WeaveGrid(h, w)
 RecursiveBacktracker.on(grid)
 
-console.log(grid.toString())
-
 const cellSize = 20
 const output = document.getElementById('output')
 output.width = cellSize * w + 1
