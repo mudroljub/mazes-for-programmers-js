@@ -48,7 +48,7 @@ export default class WeaveGrid extends Grid {
       let x1, x2, x3, x4, y1, y2, y3, y4;
       [x1, x2, x3, x4, y1, y2, y3, y4] = this.cell_coordinates_with_inset(x, y, cellSize, inset)
 
-      if (cell.is_vertical_passage()) {
+      if (cell.vertical_passage) {
         ctx.moveTo(x2, y1)
         ctx.lineTo(x2, y2)
         ctx.moveTo(x3, y1)
